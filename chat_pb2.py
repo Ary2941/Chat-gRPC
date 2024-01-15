@@ -12,20 +12,19 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nchat.proto\x1a\x1bgoogle/protobuf/empty.proto\"1\n\x0eMessageRequest\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"2\n\x0fMessageResponse\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t2\x81\x01\n\x0b\x43hatService\x12\x32\n\x0bSendMessage\x12\x0f.MessageRequest\x1a\x10.MessageResponse\"\x00\x12>\n\x0eReceiveMessage\x12\x16.google.protobuf.Empty\x1a\x10.MessageResponse\"\x00\x30\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nchat.proto\x12\x04grpc\"\x07\n\x05\x45mpty\"%\n\x04Note\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t2Z\n\nChatServer\x12\'\n\nChatStream\x12\x0b.grpc.Empty\x1a\n.grpc.Note0\x01\x12#\n\x08SendNote\x12\n.grpc.Note\x1a\x0b.grpc.Emptyb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'chat_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
-  _globals['_MESSAGEREQUEST']._serialized_start=43
-  _globals['_MESSAGEREQUEST']._serialized_end=92
-  _globals['_MESSAGERESPONSE']._serialized_start=94
-  _globals['_MESSAGERESPONSE']._serialized_end=144
-  _globals['_CHATSERVICE']._serialized_start=147
-  _globals['_CHATSERVICE']._serialized_end=276
+  _globals['_EMPTY']._serialized_start=20
+  _globals['_EMPTY']._serialized_end=27
+  _globals['_NOTE']._serialized_start=29
+  _globals['_NOTE']._serialized_end=66
+  _globals['_CHATSERVER']._serialized_start=68
+  _globals['_CHATSERVER']._serialized_end=158
 # @@protoc_insertion_point(module_scope)

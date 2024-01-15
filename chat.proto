@@ -1,18 +1,17 @@
 syntax = "proto3";
 
-import "google/protobuf/empty.proto";
+package grpc;
 
-service ChatService {
-  rpc SendMessage (MessageRequest) returns (MessageResponse) {}
-  rpc ReceiveMessage (google.protobuf.Empty) returns (stream MessageResponse) {}
+message Empty {}
+
+// I called it Note because message Message sounds complicated
+message Note {
+    string name = 1;
+    string message = 2;
 }
 
-message MessageRequest {
-  string sender = 1;
-  string message = 2;
-}
-
-message MessageResponse {
-  string sender = 1;
-  string message = 2;
+service ChatServer {
+    // This bi-directional stream makes it possible to send and receive Notes between 2 persons
+    rpc ChatStream (Empty) returns (stream Note);
+    rpc SendNote (Note) returns (Empty);
 }

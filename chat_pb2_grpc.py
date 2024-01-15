@@ -3,10 +3,9 @@
 import grpc
 
 import chat_pb2 as chat__pb2
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-class ChatServiceStub(object):
+class ChatServerStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -15,58 +14,59 @@ class ChatServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.SendMessage = channel.unary_unary(
-                '/ChatService/SendMessage',
-                request_serializer=chat__pb2.MessageRequest.SerializeToString,
-                response_deserializer=chat__pb2.MessageResponse.FromString,
+        self.ChatStream = channel.unary_stream(
+                '/grpc.ChatServer/ChatStream',
+                request_serializer=chat__pb2.Empty.SerializeToString,
+                response_deserializer=chat__pb2.Note.FromString,
                 )
-        self.ReceiveMessage = channel.unary_stream(
-                '/ChatService/ReceiveMessage',
-                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-                response_deserializer=chat__pb2.MessageResponse.FromString,
+        self.SendNote = channel.unary_unary(
+                '/grpc.ChatServer/SendNote',
+                request_serializer=chat__pb2.Note.SerializeToString,
+                response_deserializer=chat__pb2.Empty.FromString,
                 )
 
 
-class ChatServiceServicer(object):
+class ChatServerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def SendMessage(self, request, context):
+    def ChatStream(self, request, context):
+        """This bi-directional stream makes it possible to send and receive Notes between 2 persons
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SendNote(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ReceiveMessage(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
 
-
-def add_ChatServiceServicer_to_server(servicer, server):
+def add_ChatServerServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'SendMessage': grpc.unary_unary_rpc_method_handler(
-                    servicer.SendMessage,
-                    request_deserializer=chat__pb2.MessageRequest.FromString,
-                    response_serializer=chat__pb2.MessageResponse.SerializeToString,
+            'ChatStream': grpc.unary_stream_rpc_method_handler(
+                    servicer.ChatStream,
+                    request_deserializer=chat__pb2.Empty.FromString,
+                    response_serializer=chat__pb2.Note.SerializeToString,
             ),
-            'ReceiveMessage': grpc.unary_stream_rpc_method_handler(
-                    servicer.ReceiveMessage,
-                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                    response_serializer=chat__pb2.MessageResponse.SerializeToString,
+            'SendNote': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendNote,
+                    request_deserializer=chat__pb2.Note.FromString,
+                    response_serializer=chat__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'ChatService', rpc_method_handlers)
+            'grpc.ChatServer', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class ChatService(object):
+class ChatServer(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def SendMessage(request,
+    def ChatStream(request,
             target,
             options=(),
             channel_credentials=None,
@@ -76,14 +76,14 @@ class ChatService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ChatService/SendMessage',
-            chat__pb2.MessageRequest.SerializeToString,
-            chat__pb2.MessageResponse.FromString,
+        return grpc.experimental.unary_stream(request, target, '/grpc.ChatServer/ChatStream',
+            chat__pb2.Empty.SerializeToString,
+            chat__pb2.Note.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def ReceiveMessage(request,
+    def SendNote(request,
             target,
             options=(),
             channel_credentials=None,
@@ -93,8 +93,8 @@ class ChatService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/ChatService/ReceiveMessage',
-            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            chat__pb2.MessageResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/grpc.ChatServer/SendNote',
+            chat__pb2.Note.SerializeToString,
+            chat__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
