@@ -1,5 +1,4 @@
-import threading,sys
-
+import threading
 from tkinter import *
 from tkinter import simpledialog
 
@@ -9,7 +8,7 @@ import chat_pb2 as chat
 import chat_pb2_grpc as rpc
 
 address = 'localhost'
-port = sys.argv[1]
+port = 11912
 
 
 class Client:
@@ -63,7 +62,7 @@ if __name__ == '__main__':
     frame = Frame(root, width=300, height=300)
     frame.pack()
     root.withdraw()
-    username = sys.argv[2]
+    username = None
     while username is None:
         # retrieve a username so we can distinguish all the different clients
         username = simpledialog.askstring("Username", "What's your username?", parent=root)
