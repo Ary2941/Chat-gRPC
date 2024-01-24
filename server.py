@@ -11,7 +11,7 @@ def keyboard_interrupt_monitor():
             time.sleep(1)
     except KeyboardInterrupt:
         print("\nEncerrando o servidor...")
-        sys.exit()
+        os._exit(0)
 
 class ChatServer(rpc.ChatServerServicer):
     def __init__(self):
@@ -26,9 +26,11 @@ class ChatServer(rpc.ChatServerServicer):
                 yield n
 
     def SendNote(self, request: chat.Note, context):
-        print("[{}] {}".format(request.name, request.message))
+        print("{}: {}".format(request.name, request.message))
         self.chats.append(request)
         return chat.Empty()
+    
+
 
 def run_server(port):
     monitor_thread = threading.Thread(target=keyboard_interrupt_monitor, daemon=True)
@@ -37,7 +39,7 @@ def run_server(port):
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     rpc.add_ChatServerServicer_to_server(ChatServer(), server)
-    print('Starting server. Listening...')
+    #print('Starting server. Listening...')
     
     try:
         sys.stderr = open('nul', 'w')  # No Windows
@@ -48,4 +50,4 @@ def run_server(port):
         # Ignorar exceções específicas que você quer evitar
         print("OPS:", e)
 
-run_server(int(sys.argv[1]))
+#run_server(int(sys.argv[1]))
