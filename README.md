@@ -21,15 +21,9 @@ python quimera.py
 ```
 - para mandar mensagens basta escrever no terminal, após definir as portas *dos dois clientes*
 
-### clientes
-
-```bash
-python client.py {coloque aqui o endereço localhost} {coloque aqui o nome de usuário}
-```
-
 ## Funcionalidades
 
-- os clientes recebem as mensagens através da interface.
+- os clientes recebem as mensagens e enviam pelo terminal.
 
 ---
 
