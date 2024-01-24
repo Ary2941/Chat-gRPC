@@ -19,13 +19,7 @@ pip install grpc
 ```bash
 python quimera.py
 ```
-- para mandar mensagens basta escrever no terminal, após definir as portas0 *dos dois clientes*
-
-### Servidor 
-
-```bash
-python server.py {coloque aqui o endereço localhost}
-```
+- para mandar mensagens basta escrever no terminal, após definir as portas *dos dois clientes*
 
 ### clientes
 
