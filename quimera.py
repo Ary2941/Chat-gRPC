@@ -1,4 +1,4 @@
-import client, server, threading
+import blueprint.client as client, blueprint.server as server, threading
 
 serveraddress = input("my address: ")
 clientaddress = input("their address: ")

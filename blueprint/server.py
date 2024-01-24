@@ -1,8 +1,8 @@
 from concurrent import futures
 import sys,os,time,threading
 import grpc
-import chat_pb2 as chat
-import chat_pb2_grpc as rpc
+import proto.chat_pb2 as chat
+import proto.chat_pb2_grpc as rpc
 import threading
 
 def keyboard_interrupt_monitor():
